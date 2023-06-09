@@ -44,14 +44,14 @@ export default function useUserList() {
         router.push(`/?page=${page}`);
     }
 
-    async function deleteUser(user: User) {
+    async function deleteUser(userId: number) {
         try {
-            const response = await fetch(`https://reqres.in/api/users/${user.id}`, {
+            const response = await fetch(`https://reqres.in/api/users/${userId}`, {
                 method: 'DELETE',
             });
 
             if (response.ok) {
-                const index = userList.value.findIndex((u) => u.id === user.id);
+                const index = userList.value.findIndex((u) => u.id === userId);
                 userList.value.splice(index, 1);
                 filterUsers();
             } else {
