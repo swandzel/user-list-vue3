@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import {ref, defineEmits, defineProps} from 'vue';
 import ArrowIcon from '../assets/arrow.png'
+import type {Page} from "@/types/global";
 
 const props = defineProps({
     totalPages: {
@@ -22,7 +23,7 @@ const props = defineProps({
     }
 });
 
-const currentPage = ref<number>(1);
+const currentPage = ref<Page>(1);
 
 const emit = defineEmits(['page-change']);
 

@@ -1,20 +1,20 @@
 import {ref} from 'vue';
 import {useRouter} from "vue-router";
-import type {Id, User} from "@/types/global";
+import type {Avatar, First_Name, Id, Last_Name, Page, User} from "@/types/global";
 
 export default function useUserList() {
     const router = useRouter();
 
     const userList = ref<User[]>([]);
     const filteredUserList = ref<User[]>([]);
-    const totalPages = ref<number>(0);
-    const currentPage = ref<number>(1);
+    const totalPages = ref<Page>(0);
+    const currentPage = ref<Page>(1);
     const searchQuery = ref<string>('');
-    const firstName = ref<string>('');
-    const lastName = ref<string>('');
-    const avatarUrl = ref<string>('');
+    const firstName = ref<First_Name>('');
+    const lastName = ref<Last_Name>('');
+    const avatarUrl = ref<Avatar>('');
 
-    async function fetchUserList(page: number) {
+    async function fetchUserList(page: Page) {
         try {
             const response = await fetch(`https://reqres.in/api/users?page=${page}`);
             const data = await response.json();
@@ -39,7 +39,7 @@ export default function useUserList() {
         }
     }
 
-    function onPageChange(page: number) {
+    function onPageChange(page: Page) {
         fetchUserList(page);
         router.push(`/?page=${page}`);
     }
@@ -50,10 +50,7 @@ export default function useUserList() {
                 method: 'DELETE',
             });
             if (response.ok) {
-                const index = userList.value.findIndex((u) => u.id === userId);
-                userList.value.splice(index, 1);
-                filterUsers();
-                alert('User deleted');
+                alert(`User ${userId} deleted`);
             } else {
                 alert('Something goes wrong with deleting user');
             }
