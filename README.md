@@ -1,6 +1,6 @@
 # user-list-vue3
 
-User List project written in Vue 3 and TypeScript.
+User List project written in Vue 3, TypeScript and Sass.
 
 ## Project Setup
 

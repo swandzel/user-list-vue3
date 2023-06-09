@@ -30,7 +30,6 @@ const {
     totalPages,
     currentPage,
     searchQuery,
-    userList,
     fetchUserList,
     onPageChange,
     filterUsers,
@@ -44,9 +43,6 @@ watch(searchQuery, () => {
     filterUsers();
 });
 
-watch(userList.value, () => {
-    fetchUserList(currentPage.value);
-})
 </script>
 
 <style scoped lang="scss">
