@@ -55,7 +55,7 @@ export default function useUserList() {
                 userList.value.splice(index, 1);
                 filterUsers();
             } else {
-                console.error('Something goes wrong with deleting user');
+                alert('Something goes wrong with deleting user');
             }
         } catch (error) {
             console.error('Something goes wrong', error);
@@ -80,26 +80,26 @@ export default function useUserList() {
                 alert(`User ${firstName.value} ${lastName.value} has been added`)
                 router.push('/');
             } else {
-                console.error('Something goes wrong with adding user');
+                alert('Something goes wrong with adding user');
             }
         } catch (error) {
             console.error('Something goes wrong', error);
         }
     }
 
-    async function fetchUser(userId) {
+    async function fetchUser(userId: string) {
         try {
-            const response = await fetch(`https://reqres.in/api/users/${userId.value}`);
-            const data = await response.json();
-            firstName.value = data.data.first_name;
-            lastName.value = data.data.last_name;
-            avatarUrl.value = data.data.avatar;
+            const response = await fetch(`https://reqres.in/api/users/${userId}`);
+            const {data} = await response.json();
+            firstName.value = data.first_name;
+            lastName.value = data.last_name;
+            avatarUrl.value = data.avatar;
         } catch (error) {
-            console.error('Błąd sieci', error);
+            console.error('Something goes wrong', error);
         }
     }
 
-    async function editUser(userId) {
+    async function editUser(userId: string) {
         try {
             const response = await fetch(`https://reqres.in/api/users/${userId}`, {
                 method: 'PUT',
@@ -114,13 +114,13 @@ export default function useUserList() {
             });
 
             if (response.ok) {
-                alert('Użytkownik został zaktualizowany');
+                alert(`User ${firstName.value} ${lastName.value} has been updated`);
                 router.push('/');
             } else {
-                console.error('Coś poszło nie tak');
+                alert('Something goes wrong');
             }
         } catch (error) {
-            console.error('Coś poszło nie tak', error);
+            console.error('Something goes wrong', error);
         }
     }
 

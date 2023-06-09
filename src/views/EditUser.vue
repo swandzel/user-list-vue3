@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Edit User</h2>
-        <form @submit.prevent="editUser">
+        <form @submit.prevent="editUser(userId)">
             <label for="first-name">First name:</label>
             <input id="first-name" v-model="firstName" required />
 
@@ -22,7 +22,7 @@ import { useRouter } from 'vue-router';
 import useUserList from "@/composable/useUserList";
 
 const router = useRouter();
-const userId = ref(router.currentRoute.value.params.id);
+const userId = ref<string>(`${router.currentRoute.value.params.id}`);
 
 const {
     firstName,
@@ -31,6 +31,6 @@ const {
     fetchUser,
     editUser,
 } = useUserList();
-onMounted(() => fetchUser(userId))
+onMounted(() => fetchUser(userId.value))
 
 </script>
