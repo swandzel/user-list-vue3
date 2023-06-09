@@ -47,6 +47,12 @@ watch(searchQuery, () => {
 <style scoped lang="scss">
 .user-list {
   width: 62.5rem;
+  margin: auto;
+
+  @media only screen and (max-width: 1000px) {
+    padding: 0 0.625rem;
+    width: 100%;
+  }
 
   &__title {
     font-size: 2rem;
@@ -74,6 +80,10 @@ watch(searchQuery, () => {
     border: 0;
     width: 20rem;
     padding: 0 1rem;
+
+    @media only screen and (max-width: 1000px) {
+      width: 10rem;
+    }
   }
 
   &__button {
@@ -82,7 +92,8 @@ watch(searchQuery, () => {
     border: 0;
     border-radius: 1.25rem;
     padding: 0.5rem 1rem;
-    font-weight: bold;
+    text-decoration: none;
+    user-select: none;
   }
 
   &__table-header {

@@ -6,8 +6,10 @@
         </div>
         <span class='user__name'>{{ user.first_name }} {{ user.last_name }}</span>
         <div class='user__action'>
-            <router-link :to="`/edit/${user.id}`" class='user__action__icon'><img :src='EditIcon' alt='Edit' /></router-link>
-            <button @click="deleteUser(user.id)" class='user__action__icon'><img :src='DeleteIcon' alt='Delete' /></button>
+            <router-link :to="`/edit/${user.id}`" class='user__action__icon'><img :src='EditIcon' alt='Edit' />
+            </router-link>
+            <button @click="deleteUser(user.id)" class='user__action__icon'><img :src='DeleteIcon' alt='Delete' />
+            </button>
         </div>
     </li>
 </template>
@@ -59,20 +61,22 @@ const {
 
   &__action {
     display: flex;
-      gap: 10px;
+    gap: 10px;
     width: 6.25rem;
 
-      &__icon {
-          background: transparent;
-          border: 0;
-          width: 1.5625rem;
-          height: 1.5625rem;
+    &__icon {
+      background: transparent;
+      border: 0;
+      width: 1.5625rem;
+      height: 1.5625rem;
+      user-select: none;
+      cursor: pointer;
 
-          img {
-              width: 100%;
-              height: 100%;
-          }
+      img {
+        width: 100%;
+        height: 100%;
       }
+    }
   }
 }
 </style>
