@@ -54,6 +54,7 @@ export default function useUserList() {
                 const index = userList.value.findIndex((u) => u.id === userId);
                 userList.value.splice(index, 1);
                 filterUsers();
+                alert('User deleted');
             } else {
                 alert('Something goes wrong with deleting user');
             }

@@ -1,15 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AddUser from '../views/AddUser.vue'
 import UserList from '../views/UserList.vue'
-import EditUser from '../views/EditUser.vue'
+import AddEditUser from '../views/AddEditUser.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: UserList },
-    { path: '/add', component: AddUser },
-    { path: '/edit/:id', component: EditUser }
+    {
+      path: '/add',
+      component: AddEditUser,
+      props: { isEditing: false }
+    },
+    {
+      path: '/edit/:id',
+      component: AddEditUser,
+      props: () => ({ isEditing: true})
+    }
   ]
-})
+});
 
 export default router

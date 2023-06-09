@@ -30,9 +30,10 @@ const {
     totalPages,
     currentPage,
     searchQuery,
+    userList,
     fetchUserList,
     onPageChange,
-    filterUsers
+    filterUsers,
 } = useUserList();
 
 onMounted(() => {
@@ -42,6 +43,10 @@ onMounted(() => {
 watch(searchQuery, () => {
     filterUsers();
 });
+
+watch(userList.value, () => {
+    fetchUserList(currentPage.value);
+})
 </script>
 
 <style scoped lang="scss">
