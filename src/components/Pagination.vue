@@ -1,8 +1,9 @@
 <template>
     <div class="pagination">
-        <button @click="goToPreviousPage" :disabled="currentPage === 1" class="pagination__button"><img :src='ArrowIcon'
-                                                                                                        alt='Next page'
-                                                                                                        class="pagination__button--rotate" />
+        <button @click="goToPreviousPage" :disabled="currentPage === 1" class="pagination__button">
+            <img :src='ArrowIcon'
+                 alt='Next page'
+                 class="pagination__button--rotate" />
         </button>
         <span>{{ currentPage }} of {{ totalPages }}</span>
         <button @click="goToNextPage" :disabled="currentPage === totalPages" class="pagination__button"><img

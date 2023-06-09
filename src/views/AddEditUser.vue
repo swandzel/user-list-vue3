@@ -6,21 +6,24 @@
                 <div class="edit-user__form__name__item__inputs">
                     <div class="edit-user__form__name__item">
                         <label for="first-name">First name:</label>
-                        <input id="first-name" v-model="firstName" required class="edit-user__form__input" />
+                        <input id="first-name" v-model="firstName" required class="edit-user__form__input"
+                               placeholder='First name' />
                     </div>
                     <div class="edit-user__form__name__item">
                         <label for="last-name">Last name:</label>
-                        <input id="last-name" v-model="lastName" required class="edit-user__form__input" />
+                        <input id="last-name" v-model="lastName" required class="edit-user__form__input"
+                               placeholder='Last name'
+                        />
                     </div>
                 </div>
-
                 <button type="submit" class="edit-user__form__name__button">
                     {{ submitButtonLabel }}
                 </button>
             </div>
             <div class="edit-user__form__avatar">
                 <img :src="image" alt="User photo" />
-                <input id="avatar" v-model="avatarUrl" required class="edit-user__form__input" />
+                <input id="avatar" v-model="avatarUrl" required class="edit-user__form__input"
+                       placeholder='Past image link here' />
             </div>
         </form>
     </div>
@@ -31,9 +34,10 @@ import {onMounted, ref, computed} from 'vue';
 import {useRouter} from 'vue-router';
 import useUserList from '@/composable/useUserList';
 import PlaceholderImage from '../assets/placeholder.png'
+import type {Id} from "@/types/global";
 
 const router = useRouter();
-const userId = ref<string>(`${router.currentRoute.value.params.id}`);
+const userId = ref<Id>(+router.currentRoute.value.params.id)
 
 const props = defineProps({
     isEditing: Boolean
@@ -49,7 +53,7 @@ const {
 } = useUserList();
 
 const formTitle = computed(() => (props.isEditing ? 'Edit User' : 'Add User'));
-const submitButtonLabel = computed(() => (props.isEditing ? 'Save User' : 'Add User'));
+const submitButtonLabel = computed(() => (props.isEditing ? 'Update details' : 'Add User'));
 const image = computed(() => avatarUrl.value === "" ? PlaceholderImage : avatarUrl.value)
 
 onMounted(() => {
@@ -85,7 +89,7 @@ const submitForm = () => {
   &__form {
     display: flex;
     height: 31.25rem;
-    gap: 20px;
+    gap: 1.25rem;
 
     @media only screen and (max-width: 1180px) {
       flex-direction: column;
@@ -156,12 +160,13 @@ const submitForm = () => {
       box-shadow: 0 0 1.6875rem 0 rgba(66, 68, 90, 0.1);
       border-radius: 4px;
       flex: 1;
-      gap: 20px;
+      gap: 1.25rem;
 
       img {
         width: 18.75rem;
         height: 18.75rem;
         border-radius: 50%;
+        object-fit: contain;
       }
     }
   }

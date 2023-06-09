@@ -1,6 +1,6 @@
 import {ref} from 'vue';
 import {useRouter} from "vue-router";
-import type {User} from "@/types/global";
+import type {Id, User} from "@/types/global";
 
 export default function useUserList() {
     const router = useRouter();
@@ -44,12 +44,11 @@ export default function useUserList() {
         router.push(`/?page=${page}`);
     }
 
-    async function deleteUser(userId: number) {
+    async function deleteUser(userId: Id) {
         try {
             const response = await fetch(`https://reqres.in/api/users/${userId}`, {
                 method: 'DELETE',
             });
-
             if (response.ok) {
                 const index = userList.value.findIndex((u) => u.id === userId);
                 userList.value.splice(index, 1);
@@ -88,7 +87,7 @@ export default function useUserList() {
         }
     }
 
-    async function fetchUser(userId: string) {
+    async function fetchUser(userId: Id) {
         try {
             const response = await fetch(`https://reqres.in/api/users/${userId}`);
             const {data} = await response.json();
@@ -100,7 +99,7 @@ export default function useUserList() {
         }
     }
 
-    async function editUser(userId: string) {
+    async function editUser(userId: Id) {
         try {
             const response = await fetch(`https://reqres.in/api/users/${userId}`, {
                 method: 'PUT',

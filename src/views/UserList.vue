@@ -66,7 +66,7 @@ watch(userList.value, () => {
 
   &__content {
     border-radius: 4px;
-    background: white;
+    background: #fff;
     width: 100%;
     padding: 2rem 1.5rem;
     box-shadow: 0 0 1.6875rem 0 rgba(66, 68, 90, 0.1);
