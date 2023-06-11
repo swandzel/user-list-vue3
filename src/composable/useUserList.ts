@@ -1,6 +1,6 @@
 import {ref} from 'vue';
 import {useRouter} from "vue-router";
-import type {Avatar, First_Name, Id, Last_Name, Page, User} from "@/types/global";
+import type {Avatar, First_Name, Id, Last_Name, Page, SearchQuery, User} from "@/types/global";
 
 export default function useUserList() {
     const router = useRouter();
@@ -9,14 +9,15 @@ export default function useUserList() {
     const filteredUserList = ref<User[]>([]);
     const totalPages = ref<Page>(0);
     const currentPage = ref<Page>(1);
-    const searchQuery = ref<string>('');
+    const searchQuery = ref<SearchQuery>('');
     const firstName = ref<First_Name>('');
     const lastName = ref<Last_Name>('');
     const avatarUrl = ref<Avatar>('');
+    const BASE_URL = 'https://reqres.in/api/users'
 
-    async function fetchUserList(page: Page) {
+    const fetchUserList = async (page: Page) => {
         try {
-            const response = await fetch(`https://reqres.in/api/users?page=${page}`);
+            const response = await fetch(`${BASE_URL}?page=${page}`);
             const data = await response.json();
             userList.value = data.data;
             filterUsers();
@@ -27,7 +28,7 @@ export default function useUserList() {
         }
     }
 
-    function filterUsers() {
+    const filterUsers = () => {
         if (searchQuery.value === '') {
             filteredUserList.value = userList.value;
         } else {
@@ -39,14 +40,14 @@ export default function useUserList() {
         }
     }
 
-    function onPageChange(page: Page) {
+    const onPageChange = (page: Page) => {
         fetchUserList(page);
         router.push(`/?page=${page}`);
     }
 
-    async function deleteUser(userId: Id) {
+    const deleteUser = async (userId: Id) => {
         try {
-            const response = await fetch(`https://reqres.in/api/users/${userId}`, {
+            const response = await fetch(`${BASE_URL}/${userId}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
@@ -59,9 +60,9 @@ export default function useUserList() {
         }
     }
 
-    async function addUser() {
+    const addUser = async () => {
         try {
-            const response = await fetch('https://reqres.in/api/users', {
+            const response = await fetch(`${BASE_URL}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,9 +85,9 @@ export default function useUserList() {
         }
     }
 
-    async function fetchUser(userId: Id) {
+    const fetchUser = async (userId: Id) => {
         try {
-            const response = await fetch(`https://reqres.in/api/users/${userId}`);
+            const response = await fetch(`${BASE_URL}/${userId}`);
             const {data} = await response.json();
             firstName.value = data.first_name;
             lastName.value = data.last_name;
@@ -96,9 +97,9 @@ export default function useUserList() {
         }
     }
 
-    async function editUser(userId: Id) {
+    const editUser = async (userId: Id) => {
         try {
-            const response = await fetch(`https://reqres.in/api/users/${userId}`, {
+            const response = await fetch(`${BASE_URL}/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

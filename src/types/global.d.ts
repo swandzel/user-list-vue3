@@ -3,6 +3,7 @@ export type First_Name = string
 export type Last_Name = string
 export type Avatar = string
 export type Page = number
+export type SearchQuery = string
 
 export interface User {
     id: Id;
